@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>404</title>
 </head>
 <body>
-	<h1>hello method</h1>
+	<center>
+		<h1>Hello 404</h1>
+	</center>
 </body>
 </html>
