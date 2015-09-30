@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Component
-@JsonInclude
 public class Person {
 	
 	private String name;

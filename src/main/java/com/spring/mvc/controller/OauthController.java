@@ -33,8 +33,9 @@ public class OauthController {
 		{ 
 			sb.append((char)ch);
 		}
-        logger.info("=====");
         OauthResponse oauthResponse = JacksonUtil.readValue(sb.toString(), OauthResponse.class);
+        logger.info("====="+JacksonUtil.toJSon(oauthResponse));
+
        
 		
 		return oauthResponse;
