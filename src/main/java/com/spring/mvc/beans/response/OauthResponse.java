@@ -39,6 +39,13 @@ public class OauthResponse {
 		private String create_at;
 		private String expires_in;
 		private String expires_time;
+		private String token_type;
+		public String getToken_type() {
+			return token_type;
+		}
+		public void setToken_type(String token_type) {
+			this.token_type = token_type;
+		}
 		public String getAccess_token() {
 			return access_token;
 		}

@@ -1,51 +1,40 @@
 package com.spring.mvc.controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.springframework.stereotype.Controller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-
-
-
-
-
-
-
-
+import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.mvc.beans.response.OauthResponse;
 import com.spring.mvc.utils.JacksonUtil;
 
 
-@Controller
+@RestController
 public class OauthController {
+	private static final Logger logger = LoggerFactory.getLogger(OauthController.class);
 	
 	@RequestMapping(value="/getTokenScrect")
 	public OauthResponse getTokenScrect(HttpServletRequest request) throws IOException{
-		String url = "http://10.199.166.172/api/oauth/token/get"+"?"+request.getParameter("access_token");
-		StringBuilder result = new StringBuilder();
+		String url = "http://10.199.166.172/api/oauth/token/get?access_token="+request.getParameter("access_token");
 		URL realUrl = new URL(url); 
-		URLConnection connection = realUrl.openConnection();
+		HttpURLConnection connection = (HttpURLConnection) realUrl.openConnection();
 		connection.connect();
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String line;
-        while ((line = bufferedReader.readLine()) != null) {
-            result.append(line);
-        }
-        bufferedReader.close();
-        
-        OauthResponse oauthResponse = JacksonUtil.readValue(result.toString(), OauthResponse.class);
+		StringBuilder sb = new StringBuilder(); 
+		InputStreamReader reader = new InputStreamReader(connection.getInputStream());
+		int ch;
+		while((ch = reader.read())!=-1)
+		{ 
+			sb.append((char)ch);
+		}
+        logger.info("=====");
+        OauthResponse oauthResponse = JacksonUtil.readValue(sb.toString(), OauthResponse.class);
        
 		
 		return oauthResponse;
